@@ -1,0 +1,20 @@
+shortcuts:
+	ctrl + l		clear the screen
+	shift + right	move cursor to end of line
+	shift + left	move cursor to beginning of line
+	ctrl + u		cut line before cursor into clipboard
+	alt + c			copy all line to clipboard
+	alt + v			paste clipboard to line
+	ctrl + f		move to next word
+	ctrl + b		move to previous word
+	ctrl + r		inverse search in history
+	ctrl + d		del/quit
+
+bonus:
+	history research
+	auto-completion
+	source
+	alias
+	$ vars (env, $$, $?, $0)
+	&&
+	||
