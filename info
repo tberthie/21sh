@@ -18,3 +18,5 @@ bonus:
 	$ vars (env, $$, $?, $0)
 	&&
 	||
+	local variables(export, unset, locals)
+	% when no newline

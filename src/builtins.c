@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tfontani <tfontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/20 19:55:02 by tberthie          #+#    #+#             */
-/*   Updated: 2017/02/20 19:55:04 by tberthie         ###   ########.fr       */
+/*   Created: 2017/02/28 14:03:32 by tfontani          #+#    #+#             */
+/*   Updated: 2017/02/28 14:03:33 by tfontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ void	builtins(char **args)
 		g_sh.last_ret = echo(args + 1);
 	else if (!ft_strcmp(*args, "env"))
 		g_sh.last_ret = env(args + 1);
+	else if (!ft_strcmp(*args, "locals"))
+		g_sh.last_ret = locals(args + 1);
+	else if (!ft_strcmp(*args, "export"))
+		g_sh.last_ret = builtin_export(args + 1);
+	else if (!ft_strcmp(*args, "unset"))
+		g_sh.last_ret = unset(args + 1);
 	else if (!ft_strcmp(*args, "setenv"))
 		g_sh.last_ret = builtin_setenv(args + 1);
 	else if (!ft_strcmp(*args, "unsetenv"))

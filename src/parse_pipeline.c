@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_pipeline.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tfontani <tfontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/15 15:05:16 by tberthie          #+#    #+#             */
-/*   Updated: 2017/02/20 19:57:16 by tberthie         ###   ########.fr       */
+/*   Created: 2017/02/20 19:54:53 by tfontani          #+#    #+#             */
+/*   Updated: 2017/02/28 15:59:05 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,20 @@
 
 static char		check_pipe(char **line, char **pipe, char ***pipes, char new)
 {
-	ft_parrpush((void***)pipes, *pipe);
+	int		i;
+
+	i = 0;
 	*line += new;
 	while (**line == ' ' || **line == '\t')
 		(*line)++;
-	if (!ft_strlen(*pipe))
+	while ((*pipe)[i] == ' ' || *(pipe[i]) == '\t')
+		i++;
+	if (!ft_strlen(&(*pipe)[i]))
+	{
+		free(*pipe);
 		return (!new && !**line) ? INPUT : ERROR;
+	}
+	ft_parrpush((void***)pipes, *pipe);
 	if (new)
 		*pipe = ft_strnew();
 	return (0);
@@ -83,20 +91,24 @@ char			parse_pipeline(t_exec ***execs, char **line)
 	char			**pipes;
 	char			status;
 
-	exec = (t_exec*)ft_m(sizeof(t_exec));
-	exec->id = CMD;
-	exec->args = (char***)ft_parrnew();
-	exec->redirs = (t_redirection***)ft_parrnew();
-	ft_parrpush((void***)execs, exec);
-	if ((status = split_pipes(line, &pipes)) == INPUT && !g_sh.is_sourcing)
+	if ((status = split_pipes(line, &pipes)) == INPUT && !g_sh.is_sourcing &&
+	*pipes)
 		input_again("pipe");
-	else if (status == ERROR || (status == INPUT && g_sh.is_sourcing))
+	else if ((status == ERROR || (status == INPUT && (g_sh.is_sourcing ||
+	!*pipes))))
 	{
 		status = ERROR;
-		error("parsing error near '|'", 0);
+		error(*pipes ? "parsing error near '|'" : "invalid command syntax", 0);
 	}
-	else if (!status)
+	else if (*pipes && !status)
+	{
+		exec = (t_exec*)ft_m(sizeof(t_exec));
+		exec->id = CMD;
+		exec->args = (char***)ft_parrnew();
+		exec->redirs = (t_redirection***)ft_parrnew();
+		ft_parrpush((void***)execs, exec);
 		status = split_pipeline(pipes, exec);
+	}
 	ft_parrfree((void**)pipes);
 	return (status);
 }

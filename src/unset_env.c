@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tfontani <tfontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/20 19:58:06 by tberthie          #+#    #+#             */
-/*   Updated: 2017/02/20 19:58:10 by tberthie         ###   ########.fr       */
+/*   Created: 2017/02/09 17:49:43 by tfontani          #+#    #+#             */
+/*   Updated: 2017/02/24 14:50:48 by tfontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ unsigned char	unset_env(char **args)
 	{
 		varlen = ft_strlen(*args);
 		(*args)[varlen++] = '=';
-		if ((i = ft_strarrstrn(g_sh.env, *args, varlen)))
+		if ((i = ft_strarrstrn(g_sh.env, *args, varlen)) != -1)
 		{
 			str = g_sh.env[i];
 			ft_parrrem((void**)g_sh.env + i);

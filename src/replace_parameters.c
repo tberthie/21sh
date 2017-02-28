@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_parameters.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tfontani <tfontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/09 13:32:14 by tberthie          #+#    #+#             */
-/*   Updated: 2017/02/20 19:57:31 by tberthie         ###   ########.fr       */
+/*   Created: 2017/02/20 19:55:06 by tfontani          #+#    #+#             */
+/*   Updated: 2017/02/28 14:27:22 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,26 @@
 #include "libft.h"
 #include "env.h"
 #include "def.h"
+#include "builtins.h"
 #include "sh.h"
 
 #include <unistd.h>
 #include <stdlib.h>
 
-static void		param_env(char **cmd, char **line)
+static void		param_var(char **cmd, char **line)
 {
-	char	*env;
+	char	*var;
 	char	*value;
 
-	env = ft_strnew();
+	var = ft_strnew();
 	while (**line && **line != ' ' && **line != '\t' && **line != '\'' &&
 	**line != '"' && **line != '\\'
 	&& **line != '$')
-		ft_strpush(&env, *(*line)++);
-	if ((value = get_env(env)))
+		ft_strpush(&var, *(*line)++);
+	if ((value = get_env(var)) ||
+	(value = get_local(var)))
 		ft_strspush(cmd, value);
-	free(env);
+	free(var);
 }
 
 static char		param_spe(char **cmd, char *line)
@@ -64,7 +66,7 @@ void			replace_params(char **cmd, char **line)
 	if (param_spe(cmd, *line))
 		(*line)++;
 	else
-		param_env(cmd, line);
+		param_var(cmd, line);
 }
 
 char			*replace_alias(char *cmd)

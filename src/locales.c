@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   locales.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tfontani <tfontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/28 14:03:34 by tfontani          #+#    #+#             */
-/*   Updated: 2017/02/28 14:03:35 by tfontani         ###   ########.fr       */
+/*   Created: 2017/02/28 14:03:37 by tfontani          #+#    #+#             */
+/*   Updated: 2017/02/28 14:03:38 by tfontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@
 
 #include <stdlib.h>
 
-static void		print_env(void)
+static void		print_locals(void)
 {
-	char	**env;
+	char	**locals;
 
-	env = g_sh.env;
-	while (*env)
+	locals = g_sh.locales;
+	while (*locals)
 	{
-		ft_putstr(*env++);
+		ft_putstr(*locals++);
 		ft_putchar('\n');
 	}
 }
@@ -40,51 +40,51 @@ static char		*fill_line(char **args)
 	return (line);
 }
 
-static void		remove_env_var(char **env, char *var)
+static void		remove_locals_var(char **locals, char *var)
 {
 	int		i;
 
-	if ((i = ft_strarrstrn(env, var, ft_strlen(var))) != -1)
+	if ((i = ft_strarrstrn(locals, var, ft_strlen(var))) != -1)
 	{
-		free(env[i]);
-		ft_parrrem((void**)env + i);
+		free(locals[i]);
+		ft_parrrem((void**)locals + i);
 	}
 }
 
-static void		parse_env(char **args)
+static void		parse_locals(char **args)
 {
-	char	**env;
+	char	**locals;
 	char	*line;
 
 	line = 0;
-	env = ft_strarrdup(g_sh.env);
+	locals = ft_strarrdup(g_sh.locales);
 	while (!line && *args)
 	{
 		if ((*args)[0] != '-')
 			line = fill_line(args);
 		else if ((*args)[1] == 'i')
 		{
-			ft_parrfree((void**)env);
-			env = (char**)ft_parrnew();
+			ft_parrfree((void**)locals);
+			locals = (char**)ft_parrnew();
 		}
 		else if ((*args)[1] == 'u' && args[1])
-			remove_env_var(env, *++args);
+			remove_locals_var(locals, *++args);
 		++args;
 	}
-	ft_ptrswap((void**)&env, (void**)&g_sh.env);
+	ft_ptrswap((void**)&locals, (void**)&g_sh.locales);
 	if (line)
 		exec_cmd(line);
 	else
-		print_env();
-	ft_ptrswap((void**)&env, (void**)&g_sh.env);
-	ft_parrfree((void**)env);
+		print_locals();
+	ft_ptrswap((void**)&locals, (void**)&g_sh.locales);
+	ft_parrfree((void**)locals);
 }
 
-unsigned char	env(char **args)
+unsigned char	locals(char **args)
 {
 	if (!*args)
-		print_env();
+		print_locals();
 	else
-		parse_env(args);
+		parse_locals(args);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   restore_redirs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tfontani <tfontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/20 17:44:19 by tberthie          #+#    #+#             */
-/*   Updated: 2017/02/20 19:57:33 by tberthie         ###   ########.fr       */
+/*   Created: 2017/02/20 19:55:15 by tfontani          #+#    #+#             */
+/*   Updated: 2017/02/20 21:37:34 by tfontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ void			restore_redirs(int **fds)
 		close((*fds)[0]);
 		fds++;
 	}
-	free(beg);
+	ft_parrfree((void**)beg);
 }

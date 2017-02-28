@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tfontani <tfontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/20 19:55:50 by tberthie          #+#    #+#             */
-/*   Updated: 2017/02/20 19:55:52 by tberthie         ###   ########.fr       */
+/*   Created: 2017/02/20 13:05:16 by tfontani          #+#    #+#             */
+/*   Updated: 2017/02/27 12:14:33 by tfontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void		exec_simple(t_exec *exec)
 
 	if (!**exec->paths)
 	{
-		fds = treat_redirs(*exec->redirs);
+		fds = treat_redirs(*exec->redirs, 1);
 		builtins(*exec->args);
 		restore_redirs(fds);
 	}

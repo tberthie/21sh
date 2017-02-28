@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tfontani <tfontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/20 19:54:49 by tberthie          #+#    #+#             */
-/*   Updated: 2017/02/20 19:54:50 by tberthie         ###   ########.fr       */
+/*   Created: 2017/01/23 14:50:42 by tfontani          #+#    #+#             */
+/*   Updated: 2017/02/28 12:47:23 by tfontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,5 @@
 # define SIGNAL_H
 
 void	sig_handle(int signal);
-void	sig_resize(int signal);
-void	sig_suspend(int signal);
 
 #endif

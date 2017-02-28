@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_pipes.c                                       :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tfontani <tfontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/20 19:56:09 by tberthie          #+#    #+#             */
-/*   Updated: 2017/02/20 19:56:13 by tberthie         ###   ########.fr       */
+/*   Created: 2017/02/15 14:26:54 by tfontani          #+#    #+#             */
+/*   Updated: 2017/02/24 12:51:21 by tfontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@
 
 void					next_pipe(t_exec *exec, int *pipefd)
 {
-	int		i;
+	unsigned char	i;
 
 	if (exec->id)
 	{
 		i = 0;
-		while (!(i > exec->id))
-			close(pipefd[i++ * 2 - 1]);
+		while (i != exec->id)
+			close(pipefd[i++ * 2 + 1]);
 		dup2(pipefd[(exec->id - 1) * 2], 0);
 	}
 	if (exec->args[exec->id + 1])
@@ -61,6 +61,8 @@ static void				treat_waits(t_exec_process *ep, t_exec *exec)
 	{
 		if (exec->args[(i = get_process_index(ep->ids, pid)) + 1])
 			close(ep->pipes[2 * i + 1]);
+		if (i)
+			close(ep->pipes[2 * (i - 1)]);
 		if (WIFEXITED(status))
 			g_sh.last_ret = WEXITSTATUS(status);
 		else

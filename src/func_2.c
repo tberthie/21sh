@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   func_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tfontani <tfontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/20 19:56:45 by tberthie          #+#    #+#             */
-/*   Updated: 2017/02/20 19:56:46 by tberthie         ###   ########.fr       */
+/*   Created: 2017/02/02 13:31:57 by tfontani          #+#    #+#             */
+/*   Updated: 2017/02/26 15:10:30 by tfontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "sh.h"
 #include "input.h"
 #include "config.h"
+
+#include <libft.h>
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -47,7 +49,7 @@ void	func_ctrl_d(void)
 		func_delete(0);
 	else
 	{
-		write(1, "\n", 1);
+		ft_putchar('\n');
 		exit(quit());
 	}
 }

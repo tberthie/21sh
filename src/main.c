@@ -3,30 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tfontani <tfontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/20 19:57:07 by tberthie          #+#    #+#             */
-/*   Updated: 2017/02/20 19:57:08 by tberthie         ###   ########.fr       */
+/*   Created: 2017/01/23 14:14:36 by tfontani          #+#    #+#             */
+/*   Updated: 2017/02/27 11:01:48 by tfontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh.h"
-#include "config.h"
-#include "input.h"
+#include <sh.h>
+#include <config.h>
+#include <input.h>
 
-#include "libft.h"
+#include <libft.h>
 
 #include <unistd.h>
 
 t_sh	g_sh;
 
-int		main(void)
+int				main(void)
 {
 	if (!setup())
 		return (-1);
 	while (g_sh.is_running)
 	{
 		input();
+		check_cursor_pos();
 	}
 	return (quit());
 }

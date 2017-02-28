@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tfontani <tfontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/20 19:54:45 by tberthie          #+#    #+#             */
-/*   Updated: 2017/02/20 19:54:46 by tberthie         ###   ########.fr       */
+/*   Created: 2017/01/08 14:44:13 by tfontani          #+#    #+#             */
+/*   Updated: 2017/02/27 12:13:20 by tfontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,24 @@ typedef struct	s_prompt
 	char			*col;
 }				t_prompt;
 
+typedef struct	s_hash
+{
+	char			*cmd;
+	char			*path;
+
+	struct s_hash	*next;
+}				t_hash;
+
 typedef struct	s_sh
 {
 	char			*line;
 
 	char			**env;
 	char			**path;
+
+	t_hash			*hash_table;
+
+	char			**locales;
 
 	char			**history;
 
@@ -56,7 +68,10 @@ typedef struct	s_sh
 	unsigned char	is_inputting;
 
 	unsigned char	is_sourcing;
-	char			padding[6];
+
+	unsigned char	interrupted;
+
+	char			pad[5];
 
 	void			*term_conf;
 	const char		*term_env;

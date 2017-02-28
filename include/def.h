@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   def.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tfontani <tfontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/20 19:53:57 by tberthie          #+#    #+#             */
-/*   Updated: 2017/02/20 19:53:59 by tberthie         ###   ########.fr       */
+/*   Created: 2017/01/23 16:38:53 by tfontani          #+#    #+#             */
+/*   Updated: 2017/02/24 11:21:09 by tfontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEF_H
 # define DEF_H
 
-# define SH_NAME "21sh"
+# define SH_NAME "42sh"
 
 # define DEF_TERM_ENV "xterm-256color"
 

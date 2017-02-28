@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tfontani <tfontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/20 19:56:07 by tberthie          #+#    #+#             */
-/*   Updated: 2017/02/20 19:56:08 by tberthie         ###   ########.fr       */
+/*   Created: 2017/02/15 14:25:53 by tfontani          #+#    #+#             */
+/*   Updated: 2017/02/27 10:31:12 by tfontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ static unsigned char	is_builtin(char *cmd)
 	|| !ft_strcmp(cmd, "unalias") || !ft_strcmp(cmd, "echo")
 	|| !ft_strcmp(cmd, "env") || !ft_strcmp(cmd, "setenv")
 	|| !ft_strcmp(cmd, "unsetenv") || !ft_strcmp(cmd, "source")
-	|| !ft_strcmp(cmd, "exit"));
+	|| !ft_strcmp(cmd, "export") || !ft_strcmp(cmd, "unset")
+	|| !ft_strcmp(cmd, "locals") || !ft_strcmp(cmd, "exit"));
 }
 
 static void				check_error(unsigned char exists, char *bin)
@@ -50,19 +51,19 @@ static char				*find_exec_path(char *bin)
 	exists = 0;
 	if (is_builtin(bin))
 		return (ft_strdup(""));
+	path = g_sh.path;
 	if (!ft_strchr(bin, '/'))
-	{
-		path = g_sh.path;
-		while (*path)
-		{
-			cpath = ft_strcjoin(*path++, bin, '/');
-			if (!exists)
-				exists = (access(cpath, F_OK) != -1);
-			if (access(cpath, X_OK) != -1)
-				return (cpath);
-			free(cpath);
-		}
-	}
+		if ((cpath = hash_table_get(bin)))
+			return (cpath);
+		else
+			while (*path)
+			{
+				cpath = ft_strcjoin(*path++, bin, '/');
+				exists = (!exists) ? (access(cpath, F_OK) != -1) : exists;
+				if (access(cpath, X_OK) != -1)
+					return (hash_table_set(bin, cpath));
+				free(cpath);
+			}
 	else if ((exists = access(bin, F_OK) != -1) && access(bin, X_OK) != -1)
 		return (ft_strdup(bin));
 	check_error(exists, bin);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_launch.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tfontani <tfontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/20 19:56:04 by tberthie          #+#    #+#             */
-/*   Updated: 2017/02/20 19:56:05 by tberthie         ###   ########.fr       */
+/*   Created: 2017/02/20 19:53:59 by tfontani          #+#    #+#             */
+/*   Updated: 2017/02/24 12:09:40 by tfontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 void	launch_cmd(t_exec *exec)
 {
-	free(treat_redirs(exec->redirs[exec->id]));
+	treat_redirs(exec->redirs[exec->id], 0);
 	if (!*exec->paths[exec->id])
 	{
 		builtins(exec->args[exec->id]);

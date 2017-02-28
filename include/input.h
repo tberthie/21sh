@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tfontani <tfontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/20 19:54:19 by tberthie          #+#    #+#             */
-/*   Updated: 2017/02/20 19:54:21 by tberthie         ###   ########.fr       */
+/*   Created: 2017/01/23 16:41:55 by tfontani          #+#    #+#             */
+/*   Updated: 2017/02/26 14:59:59 by tfontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ void	treat_char(char c);
 void	move_cursor(unsigned short c, short shift);
 void	write_term(char *str, unsigned short c);
 void	clear_line(void);
+void	check_cursor_pos(void);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tfontani <tfontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/20 19:54:09 by tberthie          #+#    #+#             */
-/*   Updated: 2017/02/20 19:54:11 by tberthie         ###   ########.fr       */
+/*   Created: 2017/02/28 14:05:30 by tfontani          #+#    #+#             */
+/*   Updated: 2017/02/28 14:05:32 by tfontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void			exec_pre_conf(void);
 void			exec_post_conf(void);
 
 void			launch_cmd(t_exec *exec) __attribute__((noreturn));
-int				**treat_redirs(t_redirection **redirs);
+int				**treat_redirs(t_redirection **redirs, unsigned char save);
 void			restore_redirs(int	**fds);
 
 void			exec_pipes(t_exec *exec);
@@ -78,5 +78,8 @@ void			pipes_crash_push(t_pipecrash ***pipecrashes, char *bin,
 void			pipes_crash_print(t_pipecrash **pipecrashes);
 
 char			**find_exec_paths(char ***args);
+
+char			*hash_table_get(char *cmd);
+char			*hash_table_set(char *cmd, char *path);
 
 #endif

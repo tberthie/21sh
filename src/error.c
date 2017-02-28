@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tfontani <tfontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/26 11:54:09 by tberthie          #+#    #+#             */
-/*   Updated: 2017/02/20 19:55:48 by tberthie         ###   ########.fr       */
+/*   Created: 2017/02/20 19:53:28 by tfontani          #+#    #+#             */
+/*   Updated: 2017/02/28 13:26:53 by tfontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,41 +33,51 @@ void			error(char *msg, char *name)
 	write(2, "\n", 1);
 }
 
-void			parse_error(char op)
+void			parse_error(unsigned char op)
 {
+	char	*op_str;
+
 	write(2, "\x1b[31m"SH_NAME"\x1b[0m: parse error near '", ft_strlen(SH_NAME)
 		+ 30);
-	op == SEP ? write(2, ";", 1) : 0;
-	op == AND ? write(2, "&&", 2) : 0;
-	op == OR ? write(2, "||", 2) : 0;
+	op_str = operator_str(op);
+	write(2, op_str, ft_strlen(op_str));
 	write(2, "'\n", 2);
+}
+
+static char		*get_signal_str_bis(unsigned char sig)
+{
+	if (sig == 141)
+		return ("broken pipe");
+	if (sig == 142)
+		return ("alarm clock");
+	return ("terminated");
 }
 
 static char		*get_signal_str(unsigned char sig)
 {
 	if (sig == 129)
-		return ("HANG UP instruction");
+		return ("hang up instruction");
 	if (sig == 131)
-		return ("QUIT instruction");
+		return ("quit");
 	if (sig == 132)
 		return ("illegal instruction");
 	if (sig == 133)
-		return ("trace trap");
+		return ("trace/breakpoint trap");
 	if (sig == 134)
-		return ("ABORT instruction");
+		return ("abort");
 	if (sig == 135)
-		return ("bus error");
+		return ("emulation trap");
 	if (sig == 136)
-		return ("floating point exception");
+		return ("arithmetic exception");
 	if (sig == 137)
-		return ("KILL instruction");
+		return ("kill instruction");
 	if (sig == 138)
-		return ("user signal 1");
+		return ("bus error");
 	if (sig == 139)
 		return ("segmentation fault");
 	if (sig == 140)
-		return ("user signal 2");
-	return ("broken pipe");
+		return ("bad system call");
+	return (get_signal_str_bis(sig));
 }
 
 void			print_exit_signal(unsigned char sig, char *bin)
@@ -75,8 +85,8 @@ void			print_exit_signal(unsigned char sig, char *bin)
 	char	*str;
 
 	if (sig == 130)
-		write(2, "^C\n", 3);
-	else if (sig > 128 && sig < 142)
+		ft_putchar('\n');
+	else if (sig > 128 && sig < 144)
 	{
 		str = get_signal_str(sig);
 		error(str, bin);
@@ -84,7 +94,7 @@ void			print_exit_signal(unsigned char sig, char *bin)
 	else
 	{
 		str = ft_itoa((int)sig);
-		error("process killed", str);
+		error("process exited with signal", str);
 		free(str);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tfontani <tfontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/20 19:57:40 by tberthie          #+#    #+#             */
-/*   Updated: 2017/02/20 19:57:41 by tberthie         ###   ########.fr       */
+/*   Created: 2017/01/29 19:25:34 by tfontani          #+#    #+#             */
+/*   Updated: 2017/02/28 12:47:17 by tfontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,13 @@ unsigned char			setup(void)
 	g_sh.env = ft_strarrdup(environ);
 	if (!setup_term_conf()
 	|| signal(SIGINT, sig_handle) == SIG_ERR
-	|| signal(SIGWINCH, sig_resize) == SIG_ERR
-	|| signal(SIGCONT, sig_suspend) == SIG_ERR
+	|| signal(SIGWINCH, sig_handle) == SIG_ERR
+	|| signal(SIGCONT, sig_handle) == SIG_ERR
 	|| !(g_sh.pwd = getcwd((char*)0, 0)))
 		return (0);
+	g_sh.hash_table = ft_m(255 * sizeof(t_hash));
+	ft_bzero(g_sh.hash_table, 255 * sizeof(t_hash));
+	g_sh.locales = (char**)ft_parrnew();
 	g_sh.history = (char**)ft_parrnew();
 	g_sh.oldpwd = ft_strdup(g_sh.pwd);
 	g_sh.home = ft_strdup(

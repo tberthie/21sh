@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_f.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tfontani <tfontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/20 19:57:04 by tberthie          #+#    #+#             */
-/*   Updated: 2017/02/20 19:57:05 by tberthie         ###   ########.fr       */
+/*   Created: 2017/01/26 14:36:27 by tfontani          #+#    #+#             */
+/*   Updated: 2017/02/26 15:09:26 by tfontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,27 @@ void	clear_line(void)
 	free(str);
 	move_cursor((unsigned short)ft_strlen(g_sh.line) + g_sh.prompt.len,
 		-(short)ft_strlen(g_sh.line));
+}
+
+void	check_cursor_pos(void)
+{
+	unsigned int	pos;
+	char			b[4];
+
+	write(1, "\033[6n", 4);
+	read(0, b, 4);
+	if (b[3] != ';')
+		while (read(0, b, 1) == 1 && *b != ';')
+			;
+	pos = 0;
+	while (read(0, b, 1) == 1 && *b != 'R')
+		pos = pos * 10 + (unsigned int)(*b - '0');
+	if (pos != 1)
+	{
+		perform_termcap("so");
+		perform_termcap("mr");
+		ft_putchar('%');
+		perform_termcap("se");
+		ft_putchar('\n');
+	}
 }
