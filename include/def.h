@@ -6,14 +6,14 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 16:20:52 by tberthie          #+#    #+#             */
-/*   Updated: 2017/02/28 16:20:54 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/02/28 17:21:11 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEF_H
 # define DEF_H
 
-# define SH_NAME "42sh"
+# define SH_NAME "21sh"
 
 # define DEF_TERM_ENV "xterm-256color"
 
