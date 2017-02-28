@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   retrieve_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfontani <tfontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/27 16:35:59 by tfontani          #+#    #+#             */
-/*   Updated: 2017/02/18 14:33:26 by tfontani         ###   ########.fr       */
+/*   Created: 2017/02/28 17:19:12 by tberthie          #+#    #+#             */
+/*   Updated: 2017/02/28 17:19:13 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void			retrieve_input(void)
 
 	g_sh.is_inputting = 1;
 	g_sh.l = 0;
+	if (g_sh.interrupted)
+		g_sh.interrupted = 0;
 	g_sh.line = ft_strnew();
 	while (read(0, &c, 1) == 1 && c != '\n')
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_pipeline.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfontani <tfontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/20 19:54:53 by tfontani          #+#    #+#             */
-/*   Updated: 2017/02/28 15:59:05 by tberthie         ###   ########.fr       */
+/*   Created: 2017/02/28 17:18:52 by tberthie          #+#    #+#             */
+/*   Updated: 2017/02/28 17:18:53 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ char			parse_pipeline(t_exec ***execs, char **line)
 	if ((status = split_pipes(line, &pipes)) == INPUT && !g_sh.is_sourcing &&
 	*pipes)
 		input_again("pipe");
-	else if ((status == ERROR || (status == INPUT && (g_sh.is_sourcing ||
-	!*pipes))))
+	else if ((status == ERROR
+	|| (status == INPUT && (g_sh.is_sourcing || !*pipes))))
 	{
 		status = ERROR;
 		error(*pipes ? "parsing error near '|'" : "invalid command syntax", 0);
